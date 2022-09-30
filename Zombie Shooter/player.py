@@ -16,12 +16,15 @@ class Player(pygame.sprite.Sprite):
         self.centerx = self.rect.centerx
         self.centery = self.rect.centery
 
+        self.weapon_sidearm = 'pistol'
+        self.weapon_main = 'smg'
+
         self.pause = False
 
         self.max_health = 100
         self.health = self.max_health
 
-        self.weapon = 'pistol'
+        self.weapon = self.weapon_sidearm
         self.clip = weapons[self.weapon]['clip']
         self.extra_ammo = weapons[self.weapon]['extra ammo']
         self.firing_timer = weapons[self.weapon]['fire rate']
@@ -46,7 +49,7 @@ class Player(pygame.sprite.Sprite):
     def shoot(self):
         if self.firing_timer <= 0 and self.clip > 0 and self.pause == False:
             self.bullets.add(Bullet(self.rect.center, self.angle + uniform(-5, 5), self.screen, self.objects))
-            # self.firing_timer = weapons[self.weapon]['fire rate']
+            self.firing_timer = weapons[self.weapon]['fire rate']
             self.clip -= 1
             self.pause = True
             self.angle += 20
